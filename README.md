@@ -101,6 +101,4 @@ CatBoostClassifier(
 
 ## About the Competition
 
-This competition was part of the "Machine Learning" course at Central University. Top performers in the main task received bonus points, while the best solutions to the additional task (building separate models per product) offered internship opportunities in T-Bank's credit scoring team.
-
 **Competition link**: [Kaggle — CU 2025 Scoring](https://www.kaggle.com/competitions/cu-2025-scoring)
