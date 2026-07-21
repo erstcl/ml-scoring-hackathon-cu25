@@ -4,7 +4,9 @@
 
 # T-Bank Credit Attrition Prediction
 
-**University competition**: Machine Learning Course (Central University)  
+[![Notebook quality](https://github.com/erstcl/ml-scoring-hackathon-cu25/actions/workflows/notebook-quality.yml/badge.svg)](https://github.com/erstcl/ml-scoring-hackathon-cu25/actions/workflows/notebook-quality.yml)
+
+**Соревнование**: CU 2025 Scoring
 **Platform**: Kaggle  
 **Organizer**: Central University & T-Bank  
 **Timeline**: November 2025
@@ -70,6 +72,10 @@ CatBoostClassifier(
 - Мониторинг ROC-AUC на валидационной выборке
 - Early stopping с `use_best_model=True`
 
+Random stratified split использовался для быстрой итерации модели, но не имитирует
+временное распределение competition test. Kaggle leaderboard score служит внешней
+оценкой при этом сдвиге.
+
 ---
 
 ## Результаты
@@ -80,10 +86,26 @@ CatBoostClassifier(
 
 ### Выводы
 - Удаление сильно разреженных признаков (>70% пропусков) улучшило стабильность модели
-- CatBoost показал устойчивость к temporal shift благодаря контролю переобучения
+- Public leaderboard score остался выше локального baseline при различии
+  распределений train и test
 - Медианная импутация оказалась эффективной для числовых признаков со средним уровнем пропусков
 
 ---
+
+## Воспроизведение анализа
+
+```bash
+git clone https://github.com/erstcl/ml-scoring-hackathon-cu25.git
+cd ml-scoring-hackathon-cu25
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+jupyter lab kaggle_hackathon.ipynb
+```
+
+При запуске нужно авторизоваться в Kaggle и подключить данные соревнования
+`cu-2025-scoring`. CI проверяет структуру и сохранённые outputs notebook без
+публикации competition files.
 
 ## Технологии
 
@@ -102,3 +124,6 @@ CatBoostClassifier(
 ## О соревновании
 
 **Ссылка на соревнование**: [Kaggle — CU 2025 Scoring](https://www.kaggle.com/competitions/cu-2025-scoring)
+
+Данные соревнования не распространяются в репозитории. Для воспроизведения нужен
+доступ к competition files на Kaggle.
