@@ -4,7 +4,9 @@
 
 # T-Bank Credit Attrition Prediction
 
-**University competition**: Machine Learning Course (Central University)  
+[![Notebook quality](https://github.com/erstcl/ml-scoring-hackathon-cu25/actions/workflows/notebook-quality.yml/badge.svg)](https://github.com/erstcl/ml-scoring-hackathon-cu25/actions/workflows/notebook-quality.yml)
+
+**Competition**: CU 2025 Scoring
 **Platform**: Kaggle  
 **Organizer**: Central University & T-Bank  
 **Timeline**: November 2025
@@ -70,6 +72,10 @@ CatBoostClassifier(
 - ROC-AUC monitoring on validation set
 - Early stopping with `use_best_model=True`
 
+This random stratified split was used for fast model iteration. It does not reproduce
+the competition's temporal test distribution; the Kaggle leaderboard score is the
+external evaluation under that shift.
+
 ---
 
 ## Results
@@ -80,10 +86,26 @@ CatBoostClassifier(
 
 ### Key Findings
 - Removing highly sparse features (>70% missing) improved model stability
-- CatBoost demonstrated robustness to temporal shift through overfitting control
+- The public leaderboard score remained above the local baseline despite the
+  train/test distribution difference
 - Median imputation proved effective for numerical features with moderate missing rates
 
 ---
+
+## Reproduce the analysis
+
+```bash
+git clone https://github.com/erstcl/ml-scoring-hackathon-cu25.git
+cd ml-scoring-hackathon-cu25
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+jupyter lab kaggle_hackathon.ipynb
+```
+
+Authenticate with Kaggle when prompted and attach the `cu-2025-scoring` competition
+data. CI validates the committed notebook structure and saved outputs without
+redistributing competition files.
 
 ## Tech Stack
 
@@ -102,3 +124,6 @@ CatBoostClassifier(
 ## About the Competition
 
 **Competition link**: [Kaggle — CU 2025 Scoring](https://www.kaggle.com/competitions/cu-2025-scoring)
+
+The competition data is not redistributed in this repository. Reproduction requires
+Kaggle access to the competition files.
